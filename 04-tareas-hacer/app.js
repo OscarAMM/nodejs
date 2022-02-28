@@ -14,13 +14,13 @@ const main = async () => {
         switch (option) {
             case 1:
                 const descripcion = await leerInput('Descripcion: ');
-                
+
                 tareas.crearTarea(descripcion);
                 break;
 
             case 2:
+                console.log(tareas.listadoArr);
                 break;
-
             case 3:
                 break;
         }
