@@ -12,13 +12,14 @@ class Tareas {
      */
     get listadoArr() {
         const listado = [];
-    
+
         /**
          * Object.keys devuelve en arreglo un objeto
          * Al ser tipo arreglo, se pueden utilizar las funciones de arreglo en JS[push,pop, etc];
          * key, es la variable que se va a usar dentro del foreach
          */
         Object.keys(this._listado).forEach(key => {
+            
             const tarea = this._listado[key];
             listado.push(tarea);
         });
@@ -30,7 +31,7 @@ class Tareas {
     }
 
     cargarTareasDeArray(tareas = []) {
-        
+
         tareas.forEach(tarea => {
             this._listado[tarea.id] = tarea;
         });
@@ -41,6 +42,19 @@ class Tareas {
         const tarea = new Tarea(desc);
 
         this._listado[tarea.id] = tarea;
+    }
+
+    listadoCompleto() {
+        let contador = 0;
+
+        this.listadoArr.forEach(tarea => {
+            contador++;
+            //destructuramos el objeto para obtener sus propiedades
+            const { desc, completadoEn } = tarea;
+            const estado = (completadoEn) ? 'Completada'.green : 'Pendiente'.red;
+
+            console.log(`${contador}. `.green + `${desc}` + '::' + estado);
+        });
     }
 }
 
