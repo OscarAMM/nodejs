@@ -49,6 +49,7 @@ class Tareas {
 
         this.listadoArr.forEach(tarea => {
             contador++;
+            
             //destructuramos el objeto para obtener sus propiedades
             const { desc, completadoEn } = tarea;
             const estado = (completadoEn) ? 'Completada'.green : 'Pendiente'.red;
