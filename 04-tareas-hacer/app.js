@@ -33,10 +33,14 @@ const main = async () => {
                     tareas.listadoCompleto();
                     break;
                 case 3:
+                    tareas.listadoTareasCompletadas(true);
+                    break;
+                case 4:
+                    tareas.listadoTareasCompletadas(false);
                     break;
             }
 
-            guardarInformacion(tareas.listadoArr);
+            //guardarInformacion(tareas.listadoArr);
 
             await inquirerPausa();
 

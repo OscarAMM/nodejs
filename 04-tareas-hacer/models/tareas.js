@@ -19,7 +19,7 @@ class Tareas {
          * key, es la variable que se va a usar dentro del foreach
          */
         Object.keys(this._listado).forEach(key => {
-            
+
             const tarea = this._listado[key];
             listado.push(tarea);
         });
@@ -29,6 +29,12 @@ class Tareas {
     constructor() {
         this._listado = {};
     }
+
+    /**     
+     * @function cargarTareasDeArray
+     * @function crearTarea
+     * @function listadoCompleto
+     */
 
     cargarTareasDeArray(tareas = []) {
 
@@ -49,12 +55,32 @@ class Tareas {
 
         this.listadoArr.forEach(tarea => {
             contador++;
-            
+
             //destructuramos el objeto para obtener sus propiedades
             const { desc, completadoEn } = tarea;
             const estado = (completadoEn) ? 'Completada'.green : 'Pendiente'.red;
 
             console.log(`${contador}. `.green + `${desc}` + '::' + estado);
+        });
+    }
+    listadoTareasCompletadas(completada = true) {
+        let contador = 0;
+        this.listadoArr.forEach(tarea => {
+            const { desc, completadoEn } = tarea;
+            const estado = (completadoEn) ? 'Completada'.green : 'Pendiente'.red;
+            
+            switch (completada) {
+                case true:
+                    contador ++;
+                    (completadoEn) ? console.log(`${contador.toString().green}. ${desc}::${estado} || ${completadoEn}`): null;
+                    break;
+        
+                case false:
+                    contador ++;
+                    (!completadoEn) ? console.log(`${contador.toString().green}. ${desc}::${estado}`): null;
+                    break;
+            }
+            
         });
     }
 }
