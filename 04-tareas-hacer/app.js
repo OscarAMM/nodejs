@@ -1,11 +1,10 @@
 const { guardarInformacion, leerDB } = require('./helpers/guardarArchivo');
-const { inquirerMenu, inquirerPausa, leerInput } = require('./helpers/inquirer');
+const { inquirerMenu, inquirerPausa, leerInput, listadoBorrarTareas, confirmationMethod } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 
 require('colors');
 
-const main = async () => {
-    console.log('Hola mundo');
+const main = async () => {    
     try {
         let option = '';
 
@@ -38,9 +37,23 @@ const main = async () => {
                 case 4:
                     tareas.listadoTareasCompletadas(false);
                     break;
+                case 6:
+                    const id = await listadoBorrarTareas(tareas.listadoArr);
+                    if(id != 0){
+                        const confirmation = await confirmationMethod(`¿Está seguro de eliminar el objeto ${id}?`);
+                        if(confirmation){
+                            tareas.borrarTarea(id);
+                            console.log('La tarea ha sido eliminada del sistema.');
+                        }
+                    }else{
+                        console.log('La operación ha sido cancelada.');
+                    }
+                    
+                    
+                    break;
             }
 
-            //guardarInformacion(tareas.listadoArr);
+            guardarInformacion(tareas.listadoArr);
 
             await inquirerPausa();
 

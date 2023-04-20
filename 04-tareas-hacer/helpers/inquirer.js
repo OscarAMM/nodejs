@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const inquirier = require('inquirer');
 require('colors');
 
 //menu de opciones para el inquirer
@@ -57,7 +56,7 @@ const inquirerMenu = async () => {
      * regresa el valor para ser consultado en app.js
      */
     
-    const { opcion } = await inquirier.prompt(menuOpts);
+    const { opcion } = await inquirer.prompt(menuOpts);
     
 
 
@@ -87,6 +86,43 @@ const leerInput = async (message) => {
     return desc;
 }
 
+const listadoBorrarTareas = async ( tareas = []) => {
+    let contador = 0;
+    const choices = tareas.map((tarea) => {
+        contador++;        
+        return {
+            value: tarea.id,
+            name: `${contador}. ${tarea.desc}`
+        }
+    });
+    choices.push({
+        value: 0,
+        name: '0.'.green + ' Cancelar'
+    });
+    const listadoBorrar = [
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Borrar',
+            choices
+        }
+    ]
+    const {id} = await inquirer.prompt(listadoBorrar);
+    return id;
+
+}
+const confirmationMethod = async (message) => {
+    const confirmation = [
+        {
+            type: 'confirm',
+            name: 'confirmationAnswer',
+            message
+        }
+    ];
+    const {confirmationAnswer} = await inquirer.prompt(confirmation);
+    return confirmationAnswer;
+}
+
 module.exports = {
-    inquirerMenu, inquirerPausa, leerInput
+    inquirerMenu, inquirerPausa, leerInput, listadoBorrarTareas, confirmationMethod
 }
