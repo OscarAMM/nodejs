@@ -111,6 +111,7 @@ const listadoBorrarTareas = async ( tareas = []) => {
     return id;
 
 }
+
 const confirmationMethod = async (message) => {
     const confirmation = [
         {
@@ -123,6 +124,30 @@ const confirmationMethod = async (message) => {
     return confirmationAnswer;
 }
 
+const listadoCheckList = async ( tareas = []) => {
+    let contador = 0;
+    const choices = tareas.map((tarea) => {
+        contador++;        
+        return {
+            value: tarea.id,
+            name: `${contador}. ${tarea.desc}`,
+            checked: (tarea.completadoEn) ? true: false,
+        }
+    });
+    
+    const pregunta = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Seleccione',
+            choices
+        }
+    ]
+    const {ids} = await inquirer.prompt(pregunta);
+    return ids;
+
+}
+
 module.exports = {
-    inquirerMenu, inquirerPausa, leerInput, listadoBorrarTareas, confirmationMethod
+    inquirerMenu, inquirerPausa, leerInput, listadoBorrarTareas, confirmationMethod, listadoCheckList
 }
